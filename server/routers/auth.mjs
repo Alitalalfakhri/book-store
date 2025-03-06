@@ -131,13 +131,21 @@ router.post('/sign-up-google', async (req, res) => {
 
 
 router.get("/auth/status", async (req, res) => {
+  console.log("Session data:", req.session);
+  
   if (req.session.trySession) {
+    console.log("User authenticated:", {
+      userId: req.session.userId,
+      type: req.session.type
+    });
+    
     return res.status(200).json({
       loggedIn: true,
-       userId: req.session.userId,
+      userId: req.session.userId,
       type: req.session.type,
     });
   } else {
+    console.log("No active session found");
     return res.status(401).json({
       success: false,
       message: 'No active session found'

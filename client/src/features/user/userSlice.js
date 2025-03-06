@@ -19,6 +19,7 @@ const userSlice = createSlice({
     logout: (state) => {
       state.loggedIn = false;
       state.uid = null; // Reset uid on logout
+      state.type = ""; // Reset type on logout
     },
   },
 });

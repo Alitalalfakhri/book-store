@@ -40,8 +40,19 @@ export default function App() {
   }
 
   useEffect(() => {
-    const checkAuth = async () =>{
-      const res = await axios.get("https://c322ae04-db91-4608-8031-e5257a3ff16c-00-3hoqmrkh6ralv.pike.replit.dev/auth/status")
+    const checkAuth = async () => {
+      try {
+        const res = await axios.get("https://c322ae04-db91-4608-8031-e5257a3ff16c-00-3hoqmrkh6ralv.pike.replit.dev/auth/status")
+        
+        if (res.data.loggedIn) {
+          dispatch(login({
+            uid: res.data.userId,
+            type: res.data.type
+          }));
+        }
+      } catch (error) {
+        console.error("Auth check failed:", error);
+      }
 
     
       if(res.data.loggedIn){
