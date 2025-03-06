@@ -15,6 +15,9 @@ const GoogleUserSchema = new mongoose.Schema({
     type:String,
     required:true,
   },
+  orders:{
+    type:Array
+  },
   type:{
     type:String,
     required:true

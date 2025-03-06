@@ -2,52 +2,49 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema(
   {
-    itemsArray:{
-      type:Array,
-      required:true
+    itemsArray: {
+      type: [
+        {
+          bookId: { type: String, required: true }, // Assuming each item has a bookId
+          quantity: { type: mongoose.Schema.Types.Mixed, required: true }, // Assuming each item has a quantity
+        },
+      ],
+      required: true,
     },
     price: {
-      type: Number,
+      type: mongoose.Schema.Types.Mixed,
       required: true,
     },
     date: {
-      type: Date,
+      type: mongoose.Schema.Types.Mixed,
       required: true,
     },
-    phone:{
-      type:number,
-      required:true
+    phone: {
+      type: mongoose.Schema.Types.Mixed,
+      required: true,
     },
-    street:{
-      
-      required:true
+    street: {
+      type: String,
+      required: true,
     },
-    city:{
-      type:String,
-      required:true
+    city: {
+      type: String,
+      required: true,
     },
-    uid:{
-      type:String,
-      required:true,
-      uniqe:true
+    uid: {
+      type: String,
+      required: true,
+      unique: true, // Corrected spelling
     },
-    orderId:{
-      type:String,
-      required:true,
-      unique:true
-    }
-    
-  }
-)
+    id: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+  },
+  { timestamps: true } // Optional: Adds `createdAt` and `updatedAt` fields
+);
 
 const Order = mongoose.model("Order", orderSchema);
-/*{
-  itemsArray: [ { bookId: 'e1f2g3h4i5j6k7l8m9n0', quantity: 1 } ],
-  price: 21.988999999999997,
-  date: 'Friday Mar 14 2025',
-  phone: '07700667597',
-  street: '7 days (Free)',
-  city: '383',
-  uid: 'YgnoGbyfb8cZnSoZAYYsSlotD112',
-  id: '3608957951'
-}*/
+
+export default Order;
