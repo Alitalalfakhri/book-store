@@ -24,7 +24,7 @@ const orders = {
   },
 
   // Add new order to the ordersArray
-  async addOrder(array, price, date , phone , street,city , uid) {
+  async addOrder(array, price, date , phone , street,city , uid , type) {
     const newOrder = {
       itemsArray: array,
       price: price,
@@ -33,6 +33,7 @@ const orders = {
       street: street,
       city: city,
       uid: uid,
+      type:type,
       id:  generateRandomId(10),
     };
 

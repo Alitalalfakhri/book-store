@@ -47,7 +47,7 @@ const SignUpPage = () => {
     try {
       const response = await axios.post(
         "https://c322ae04-db91-4608-8031-e5257a3ff16c-00-3hoqmrkh6ralv.pike.replit.dev/sign-up-email",
-        { email, password },
+        { email, password , type:'email'},
       );
 
       if (response.status === 200) {
@@ -70,7 +70,7 @@ const SignUpPage = () => {
 
       console.log(res.data)
       if(res.data.loggedIn){
-        dispatch(login({uid:res.data.userId}))
+        dispatch(login({uid:res.data.userId , type:res.data.type}))
       
         navigate('/')
       }
@@ -96,6 +96,7 @@ const SignUpPage = () => {
         displayName : user.displayName,
         email : user.email,
         uid: user.uid,
+        type:'google',
       });
 
       console.log(response); // Logs the response from your backend
@@ -105,6 +106,17 @@ const SignUpPage = () => {
       console.log("Error during Google Sign In:", error.message);
       setError("Google sign-in failed. Please try again.");
     }
+    const checkAuth = async () =>{
+      const res = await axios.get("https://c322ae04-db91-4608-8031-e5257a3ff16c-00-3hoqmrkh6ralv.pike.replit.dev/auth/status")
+
+      console.log(res.data)
+      if(res.data.loggedIn){
+        dispatch(login({uid:res.data.userId , type:res.data.type}))
+
+        navigate('/')
+      }
+    }
+    checkAuth()
   };
 
   

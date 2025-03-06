@@ -108,7 +108,7 @@ export default function App() {
                 {Headercomponent}
                 <Order
                   saveOrder={(array, price, date , phone , street , city ) => {
-                    orders.addOrder(array, price, date , phone , street ,city, user.uid);
+                    orders.addOrder(array, price, date , phone , street ,city, user.uid , user.type);
                   }}
                   zeroCart={zeroCart}
                 />

@@ -49,7 +49,7 @@ router.post('/sign-up-email',
       return res.status(400).json({ errors: errors.array() }); // Send validation errors to the client
     }
 
-    const { email, password } = req.body;
+    const { email, password , type } = req.body;
 
     try {
 
@@ -69,6 +69,7 @@ router.post('/sign-up-email',
         uid: user.uid,
         email: email,
         password: password,
+        type:type,
         orders: []
       })
     
@@ -77,6 +78,7 @@ router.post('/sign-up-email',
       req.session.trySession = true;
       req.session.createdAt = new Date();
       req.session.userId = user.uid;
+      req.session.type = type;
 
       
     
@@ -105,17 +107,21 @@ router.post('/sign-up-email',
 );
 
 router.post('/sign-up-google', async (req, res) => {
-  const { displayName, email, uid } = req.body
+  const { displayName, email, uid , type} = req.body
 
   if (displayName && email && uid) {
     try {
       const newUser = new GoogleUser({
         uid: uid,
         email: email,
+        type:type,
         displayName: displayName,
       })
       await newUser.save()
-      req.session.user = newUser
+      req.session.trySession = true;
+      req.session.createdAt = new Date();
+      req.session.userId = uid;
+      req.session.type = type;
       res.status(200).send("User created successfully")
     } catch (err) {
       res.send(err)
@@ -128,7 +134,8 @@ router.get("/auth/status", async (req, res) => {
   if (req.session.trySession) {
     return res.status(200).json({
       loggedIn: true,
-       userId: req.session.userId
+       userId: req.session.userId,
+      type: req.session.type,
     });
   } else {
     return res.status(401).json({
