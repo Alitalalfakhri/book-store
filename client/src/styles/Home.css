@@ -1,0 +1,199 @@
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f0eaea; /* Adjust color as needed */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left:0;
+  right:0;
+  z-index: 10;
+  
+  border-radius: 10px; /* Added border-radius */
+  margin-bottom:70px;
+ 
+ 
+}
+.orders{
+  margin:10px;
+  background:none;
+  cursor:pointer;
+  background-color:#d49816;
+  border-radius:10px;
+  padding:5px;
+}
+.orders:active{
+  background-color:#815d0e;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.cart-container {
+  position: relative;
+}
+
+.cart-icon {
+  font-size: 35px; /* Adjust size as needed */
+  cursor: pointer;
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: #d49816;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+
+
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #f3f4f6;
+  text-align: center;
+  position: relative;
+  margin-top:60px;
+}
+
+.book-container {
+  position: relative;
+  margin-bottom: 20px;
+  perspective: 800px; /* For 3D effect */
+
+}
+
+.right-part {
+  display: flex;
+  align-items: center;  /* Vertically centers the content */
+}
+
+
+.book-image {
+  width: 120px;
+  height: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Shadow effect to give depth */
+  transform: rotateY(-15deg); /* Slight rotation for a 3D appearance */
+  border-radius: 5px;
+}
+
+.hero-text {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.hero-subtext {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 15px;
+}
+
+.button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #ff7f11; /* Orange color */
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 6px 12px rgba(255, 127, 17, 0.4); /* Floating shadow effect */
+  cursor: pointer;
+  transition: transform 0.3s;
+  outline: none;
+}
+
+.button:hover {
+  transform: translateY(-5px);
+}
+
+
+.book-row {
+  margin: 20px 0;
+}
+
+.book-list {
+  width:100%;
+  display:grid;
+  grid-template-columns: repeat(auto-fit, 190px);
+}
+
+.book-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  padding-bottom:40px;
+  text-align: center;
+  width: 150px; /* Adjust width as needed */
+   box-shadow: 0 6px 12px rgb(0, 0, 0, 0.4);
+  position:relative;
+  .card-buttons{
+    position:absolute;
+    bottom:10px;
+  }
+}
+
+.book-card img {
+  max-width: 100%;
+  height: auto;
+}
+.buy-button{
+  font-size:15px;
+  width:40px;
+  padding:5px;
+  color: #fff;
+  background-color: #ff7f11; /* Orange color */
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 6px 12px rgb(0, 0, 0, 0.4); /* Floating shadow effect */
+  cursor: pointer;
+  transition: transform 0.3s;
+  outline: none;
+  height:30px;
+
+}
+.buy-button:active{
+  background-color:#a25715;
+}
+.read-more-button{
+  font-size: 16px;
+  width:90px;
+  color: #fff;
+  background-color: #cdc1c1; /* Orange color */
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 6px 12px rgb(0, 0, 0, 0.4); /* Floating shadow effect */
+  cursor: pointer;
+  transition: transform 0.3s;
+  outline: none;
+  height:30px;
+  margin:10px;
+ 
+}
+
+.add-dialog{
+  background-color:white;
+  color:green;
+  border-radius:5px;
+  font-size:20px;
+  height:100px;
+}
+
