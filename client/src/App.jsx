@@ -14,7 +14,7 @@ import User from './features/user/User.jsx'
 import axios from "axios";
 import {useDispatch , useSelector} from "react-redux";
 import {login} from './features/user/userSlice'
-
+import Login from './Login.jsx'
 
 
 export default function App() {
@@ -144,6 +144,14 @@ export default function App() {
               </>
             }
             />
+          <Route
+            path="/login"
+            element={
+              <>
+
+                <Login />
+              </>
+            }/>
         </Routes>
       </Router>
     </>

@@ -71,7 +71,7 @@ const SignUpPage = () => {
       console.log(res.data)
       if(res.data.loggedIn){
         dispatch(login({uid:res.data.userId , type:res.data.type}))
-      
+
         navigate('/')
       }
     }
