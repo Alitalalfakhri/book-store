@@ -31,7 +31,9 @@ export default function Login() {
   const dispatch = useDispatch();
 
   const [error, setError] = useState("");
-  const [data, setData] = useState();
+  const [email , setEmail] = useState("");
+  const [password , setPassword] = useState("");
+  const [loading , setLoading] = useState(false);
   
   useEffect(() =>{
     if (user.loggedIn === true) {
@@ -84,6 +86,38 @@ export default function Login() {
     }
   };
 
+  const handelEmailLogin = async () =>{
+    try {
+      setLoading(true);
+      const response = await axios.post(`${backendUrl}/login-email`, {
+        email: email,
+        password: password,
+      });
+
+      // Handle the response if needed
+      if (response.status === 200) {
+        const checkAuth = async () =>{
+          const res = await axios.get("https://c322ae04-db91-4608-8031-e5257a3ff16c-00-3hoqmrkh6ralv.pike.replit.dev/auth/status")
+
+          console.log(res.data)
+          if(res.data.loggedIn){
+            dispatch(login({uid:res.data.userId , type:res.data.type}))
+
+            navigate('/')
+          }
+        }
+        checkAuth()
+        
+      }
+      
+    } catch (error) {
+      // Handle errors from the sign-in process
+      console.log("Error during Email Sign In:", error.message);
+      setError(error.message);
+    }
+  }
+
+  
   return (
     <>
       <div className="loginPage">
@@ -98,9 +132,24 @@ export default function Login() {
             }}
             className="login-container-inputs"
           >
-            <input placeholder="email" />
-            <input placeholder="password" />
-            <button className="register">register</button>
+            <input placeholder="email"  onChange={(e) => {
+              setEmail(e.target.value)
+            }}/>
+            <input placeholder="password" onChange={(e) => {
+            setPassword(e.target.value)
+            }} />
+
+            {loading ? (
+              <button type="button" className="register" disabled>
+                Loading...
+              </button>
+            ) : (
+              <button type="button" className="register" onClick={handelEmailLogin}>
+                Sign Up
+              </button>
+            )}
+            
+           
             <button className="google" onClick={() => handleGoogleSignIn()}>with google</button>
           </form>
         </div>
