@@ -127,12 +127,14 @@
 
 .book-row {
   margin: 20px 0;
+  display:grid;
 }
 
 .book-list {
   width:100%;
   display:grid;
-  grid-template-columns: repeat(auto-fit, 190px);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  
 }
 
 .book-card {
@@ -142,7 +144,7 @@
   padding: 10px;
   padding-bottom:40px;
   text-align: center;
-  width: 150px; /* Adjust width as needed */
+  width: 140px; /* Adjust width as needed */
    box-shadow: 0 6px 12px rgb(0, 0, 0, 0.4);
   position:relative;
   .card-buttons{

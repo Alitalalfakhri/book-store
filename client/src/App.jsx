@@ -90,7 +90,7 @@ export default function App() {
               <>
                 {Headercomponent}
                 <Hero />
-                <User />
+               
                 <Row updateCart={updateCart} getId={(id) => setBookId(id)} />
               </>
             }

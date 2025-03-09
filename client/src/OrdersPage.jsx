@@ -111,7 +111,7 @@ export default function OrdersPage() {
                 ))}
               </tbody>
             </table>
-            <h3>Total Price: ${order.price.toFixed(2)}</h3>
+            <h3>Total Price (after taxes and delivery fees): ${order.price.toFixed(2)}</h3>
             <h3>Delivery Date: {order.date}</h3>
             <h3>Order ID: {order.id}</h3>
             <hr />

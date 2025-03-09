@@ -47,16 +47,6 @@ export default function Checkout() {
     setCartItems(updatedCart);
   }
 
-  {/*5HDPv8IIAXjF6BPh*/}
-  function Suggesions(props){
-    const {data} = props;
-    console.log(data)
-    return(
-      <>
-      hello world
-      </>
-    )
-  }
   
   return (
     <div className="checkout-page">
@@ -98,7 +88,7 @@ export default function Checkout() {
         }
        
       </div>
-      {suggesion && <Suggesions data={suggesion} />}
+      
     </div>
   );
 }
