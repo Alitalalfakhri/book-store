@@ -5,10 +5,15 @@ import cart from "./scripts/cart.js";
 import { useNavigate } from "react-router-dom";
 import { FaCheckCircle } from 'react-icons/fa';
 import { getBooks } from './data/books.js';
-
+import {useSelector , useDispatch} from 'react-redux';
+import {loadBooks} from './features/generals/booksSlice.js'
 const BookStore = (props) => {
   const navigate = useNavigate();
   const categories = ["Marketing", "Business", "Self-Development", "Stories"];
+
+  const dispatch = useDispatch();
+
+  const booksState = useSelector((state) => state.books);
 
   // State to manage books and loading status
   const [booksArray, setBooksArray] = useState([]);
@@ -17,7 +22,8 @@ const BookStore = (props) => {
   useEffect(() => {
     getBooks()
       .then(data => {
-        setBooksArray(data);  // Set books data
+        setBooksArray(data);  
+        localStorage.setItem('booksStorage', JSON.stringify(data));
         setLoading(false);     // Set loading to false after data is fetched
       })
       .catch(err => {

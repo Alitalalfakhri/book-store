@@ -32,6 +32,8 @@ router.post('/addOrder', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
+    
+
     // Create the order
     const newOrder = new Order({
       itemsArray: itemsArray,
@@ -48,7 +50,7 @@ router.post('/addOrder', async (req, res) => {
     await newOrder.save();
 
     // Add the order to the user's orders array
-    user.orders.push(newOrder._id); // Assuming `orders` is an array of order IDs in the user schema
+    user.orders.push(newOrder); // Assuming `orders` is an array of order IDs in the user schema
     await user.save();
 
     // Send success response
@@ -58,5 +60,17 @@ router.post('/addOrder', async (req, res) => {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
+
+router.post("/api/orders" , async (req, res) =>{
+  const {uid} = req.body;
+  const orders = await Order.find({uid:uid});
+ if(orders){
+   res.status(200).json(orders);
+ }else if(orders.length === 0){
+   res.send("No orders found")
+ }else{
+   res.status(404).json({message:"User not found"})
+ }
+})
 
 export default router;

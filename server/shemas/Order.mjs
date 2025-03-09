@@ -34,12 +34,12 @@ const orderSchema = new mongoose.Schema(
     uid: {
       type: String,
       required: true,
-      unique: true, // Corrected spelling
+      
     },
     id: {
       type: String,
       required: true,
-      unique: true,
+     
     },
   },
   { timestamps: true } // Optional: Adds `createdAt` and `updatedAt` fields

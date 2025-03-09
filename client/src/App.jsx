@@ -22,12 +22,13 @@ export default function App() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
 
+  const booksState = useSelector(state => state.books);
+
   const [bookId, setBookId] = useState();
   const [cartQuantity, setCartQuantity] = useState(0);
 
   // Function to update cart quantity
   function updateCart() {
-    console.log("updated");
 
     // Use reduce to sum the quantities of all items in the cart
     const totalQuantity = cart.cartArray.reduce(
@@ -51,7 +52,7 @@ export default function App() {
           }));
         }
       } catch (error) {
-        console.error("Auth check failed:", error);
+      
       }
 
     
@@ -78,7 +79,7 @@ export default function App() {
   const Headercomponent = <Header cartLength={cartQuantity} />;
 
 
-  console.log(user.uid)
+ 
   return (
     <>
       <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
