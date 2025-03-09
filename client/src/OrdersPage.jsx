@@ -12,12 +12,15 @@ export default function OrdersPage() {
   const [orderList, setOrderList] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
+  const [books , setBooks] = useState([]);
 
   useEffect(() => {
     if (!user.loggedIn) {
       // If the user is not logged in, show a message and return early
       return;
     }
+
+    
 
     // Fetch orders from the backend
     const fetchData = async () => {
@@ -27,7 +30,8 @@ export default function OrdersPage() {
         });
 
         // Update the orderList state with the fetched data
-        setOrderList(response.data);
+        setOrderList(response.data.orders);
+        setBooks(response.data.books)
       } catch (err) {
         console.error("Error fetching orders:", err);
         setError("Failed to fetch orders. Please try again later.");
@@ -92,9 +96,17 @@ export default function OrdersPage() {
               <tbody>
                 {order.itemsArray.map((item) => (
                   <tr key={item.bookId}>
-                    <td>{item.name || "Unknown Book"}</td>
+                    <td>{books.map(book => {
+                      if(book.id === item.bookId){
+                        return book.name
+                      }
+                    })}</td>
                     <td>{item.quantity}</td>
-                    <td>${(item.priceCents / 100).toFixed(2)}</td>
+                    <td>${books.map(book => {
+                     if(book.id === item.bookId){
+                       return ((book.priceCents) / 100).toFixed(2)
+                     }
+                    })}</td>
                   </tr>
                 ))}
               </tbody>

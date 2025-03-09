@@ -5,7 +5,8 @@ const orderSchema = new mongoose.Schema(
     itemsArray: {
       type: [
         {
-          bookId: { type: String, required: true }, // Assuming each item has a bookId
+          bookId: { type: String, required: true },
+          name:{type:String , require:true},
           quantity: { type: mongoose.Schema.Types.Mixed, required: true }, // Assuming each item has a quantity
         },
       ],

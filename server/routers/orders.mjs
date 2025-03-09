@@ -3,8 +3,30 @@ import EmailUser from '../shemas/EmailUser.mjs';
 import GoogleUser from '../shemas/GoogleUser.mjs';
 import mongoose from 'mongoose';
 import Order from '../shemas/Order.mjs';
+import Book from '../shemas/Book.mjs';
+import axios from 'axios';
 
 const router = express.Router();
+
+ 
+
+// Function to send message to Telegram bot
+async function sendTelegramMessage(message) {
+  const botToken = '7946714790:AAEDlGycwT6HAhJPOGZ5myEICaOWyB4Kmw4';
+  const chatId = '7428335283';
+  const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+  try {
+    await axios.post(url, {
+      chat_id: chatId,
+      text: message,
+    });
+    console.log('Telegram message sent successfully');
+  } catch (error) {
+    console.error('Error sending Telegram message:', error);
+    throw error; // Re-throw the error to handle it in the calling function
+  }
+}
 
 // Endpoint to add an order
 router.post('/addOrder', async (req, res) => {
@@ -32,11 +54,28 @@ router.post('/addOrder', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    
+    // Fetch all books
+    const books = await Book.find();
+    console.log('Books fetched:', books); // Debugging log
 
-    // Create the order
+    // Add book names to itemsArray
+    const updatedItemsArray = itemsArray.map(item => {
+      const book = books.find(book => book.id === item.bookId);
+      console.log('Book found for item:', book); // Debugging log
+
+      if (book) {
+        item.name = book.name; // Add the book name to the item
+      } else {
+        console.warn(`No book found for bookId: ${item.bookId}`); // Debugging log
+      }
+      return item; // Return the updated item
+    });
+
+    console.log('Updated itemsArray:', updatedItemsArray); // Debugging log
+
+    // Create the order with the updated itemsArray
     const newOrder = new Order({
-      itemsArray: itemsArray,
+      itemsArray: updatedItemsArray, // Use the updated array
       price: price,
       date: date,
       phone: phone,
@@ -53,6 +92,18 @@ router.post('/addOrder', async (req, res) => {
     user.orders.push(newOrder); // Assuming `orders` is an array of order IDs in the user schema
     await user.save();
 
+    // Send a message to Telegram bot
+    const telegramMessage = `New order received:\n
+      Order ID: ${newOrder.id}\n
+      User ID: ${newOrder.uid}\n
+      Total Price: ${newOrder.price}\n
+      Date: ${newOrder.date}\n
+      Address: ${newOrder.street}, ${newOrder.city}\n
+      Phone: ${newOrder.phone}\n
+      Items: ${JSON.stringify(newOrder.itemsArray)}`;
+
+    await sendTelegramMessage(telegramMessage);
+
     // Send success response
     res.status(200).json({ message: 'Order added successfully', order: newOrder });
   } catch (err) {
@@ -61,16 +112,20 @@ router.post('/addOrder', async (req, res) => {
   }
 });
 
-router.post("/api/orders" , async (req, res) =>{
-  const {uid} = req.body;
-  const orders = await Order.find({uid:uid});
- if(orders){
-   res.status(200).json(orders);
- }else if(orders.length === 0){
-   res.send("No orders found")
- }else{
-   res.status(404).json({message:"User not found"})
- }
-})
+// Endpoint to fetch orders and books
+router.post("/api/orders", async (req, res) => {
+  const { uid } = req.body;
+  const orders = await Order.find({ uid: uid });
+  const books = await Book.find();
+ 
+
+  if (orders && books) {
+    res.status(200).json({ orders: orders, books: books });
+  } else if (orders.length === 0) {
+    res.send("No orders found");
+  } else {
+    res.status(404).json({ message: "User not found" });
+  }
+});
 
 export default router;
