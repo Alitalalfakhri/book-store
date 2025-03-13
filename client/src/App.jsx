@@ -9,27 +9,26 @@ import Header from "./Header.jsx";
 import cart from "./scripts/cart.js";
 import orders from "./scripts/orders.js";
 import OrdersPage from "./OrdersPage.jsx";
-import SignUpPage from  './Sign-up.jsx';
-import User from './features/user/User.jsx'
+import SignUpPage from "./Sign-up.jsx";
+import User from "./features/user/User.jsx";
 import axios from "axios";
-import {useDispatch , useSelector} from "react-redux";
-import {login} from './features/user/userSlice'
-import Login from './Login.jsx'
-
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "./features/user/userSlice";
+import Login from "./Login.jsx";
+import Search from "./Search.jsx";
 
 export default function App() {
-
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
 
-  const booksState = useSelector(state => state.books);
+  const booksState = useSelector((state) => state.books);
 
   const [bookId, setBookId] = useState();
   const [cartQuantity, setCartQuantity] = useState(0);
+  const [searchValue , setSearchValue] = useState("");
 
   // Function to update cart quantity
   function updateCart() {
-
     // Use reduce to sum the quantities of all items in the cart
     const totalQuantity = cart.cartArray.reduce(
       (total, item) => total + item.quantity,
@@ -43,27 +42,26 @@ export default function App() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get("https://c322ae04-db91-4608-8031-e5257a3ff16c-00-3hoqmrkh6ralv.pike.replit.dev/auth/status")
-        
+        const res = await axios.get(
+          "https://c322ae04-db91-4608-8031-e5257a3ff16c-00-3hoqmrkh6ralv.pike.replit.dev/auth/status",
+        );
+
         if (res.data.loggedIn) {
-          dispatch(login({
-            uid: res.data.userId,
-            type: res.data.type
-          }));
+          dispatch(
+            login({
+              uid: res.data.userId,
+              type: res.data.type,
+            }),
+          );
         }
-      } catch (error) {
-      
-      }
+      } catch (error) {}
 
-    
-      if(res.data.loggedIn){
-        dispatch(login({uid:res.data.userId}))
+      if (res.data.loggedIn) {
+        dispatch(login({ uid: res.data.userId }));
       }
-    }
-    checkAuth()
-  } , [])
-
- 
+    };
+    checkAuth();
+  }, []);
 
   // Optionally use useEffect to update cart quantity when cart changes
   useEffect(() => {
@@ -74,12 +72,8 @@ export default function App() {
     setCartQuantity(0);
   }
 
- 
+  const Headercomponent = <Header searchValue={searchValue} setSearchValue={setSearchValue} cartLength={cartQuantity} />;
 
-  const Headercomponent = <Header cartLength={cartQuantity} />;
-
-
- 
   return (
     <>
       <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
@@ -90,7 +84,7 @@ export default function App() {
               <>
                 {Headercomponent}
                 <Hero />
-               
+
                 <Row updateCart={updateCart} getId={(id) => setBookId(id)} />
               </>
             }
@@ -119,8 +113,17 @@ export default function App() {
               <>
                 {Headercomponent}
                 <Order
-                  saveOrder={(array, price, date , phone , street , city ) => {
-                    orders.addOrder(array, price, date , phone , street ,city, user.uid , user.type);
+                  saveOrder={(array, price, date, phone, street, city) => {
+                    orders.addOrder(
+                      array,
+                      price,
+                      date,
+                      phone,
+                      street,
+                      city,
+                      user.uid,
+                      user.type,
+                    );
                   }}
                   zeroCart={zeroCart}
                 />
@@ -136,23 +139,32 @@ export default function App() {
               </>
             }
           />
-          <Route 
-            path= "/signup"
+          <Route
+            path="/signup"
             element={
               <>
                 {Headercomponent}
                 <SignUpPage />
               </>
             }
-            />
+          />
           <Route
             path="/login"
             element={
               <>
-
                 <Login />
               </>
-            }/>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <>
+                {Headercomponent}
+                <Search searchValue={searchValue} />
+              </>
+            }
+          />
         </Routes>
       </Router>
     </>

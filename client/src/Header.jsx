@@ -35,6 +35,18 @@ export default function Header(props) {
 
   const { cartLength } = props;
 
+
+  function handelSearchValue(e){
+    const value = e.target.value;
+    props.setSearchValue(value)
+  }
+
+  function handelSearch(e){
+    if(e.key === 'Enter'){
+    travel('search')
+    }
+  }
+
   return (
     <>
       <header className="header">
@@ -45,7 +57,7 @@ export default function Header(props) {
 
         {/* Search Bar */}
         <div className="search-bar">
-          <input type="text" placeholder="Search..." />
+          <input type="text" placeholder="Search..." onChange={handelSearchValue} onKeyDown={handelSearch} />
         </div>
 
         {/* Navigation Buttons (for large screens) */}
