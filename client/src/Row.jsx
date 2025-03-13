@@ -124,8 +124,10 @@ const BookStore = (props) => {
 
       {/* Dialog to show the "added" message */}
       <dialog ref={dialogRef} className="add-dialog">
-        <FaCheckCircle />
-        <p>Added: {bookName}</p>
+        <div className="dialog-content">
+          <p>Add to cart ?</p>
+        </div>
+          
       </dialog>
     </div>
   );

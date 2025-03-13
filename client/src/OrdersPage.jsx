@@ -60,7 +60,7 @@ export default function OrdersPage() {
   if (!user.loggedIn) {
     return (
       <div style={{ marginTop: "60px" }}>
-        <p style={{ fontSize: "3rem", color: "red" }}>
+        <p style={{ fontSize: "1.4rem",margin:"60px", color: "green" }}>
           Please sign up or log in to view orders.
         </p>
         <button onClick={() => navigate("/signup")}>Sign Up</button>
@@ -73,11 +73,7 @@ export default function OrdersPage() {
     return <div style={{ marginTop: "60px" }}>Loading orders...</div>;
   }
 
-  // If there's an error, show an error message
-  if (error) {
-    return <div style={{ marginTop: "60px", color: "red" }}>{error}</div>;
-  }
-
+  
   return (
     <div className="no-orders">
       {orderList.length === 0 ? (
