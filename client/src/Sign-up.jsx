@@ -125,6 +125,7 @@ const SignUpPage = () => {
 
 
   return (
+    <div className="signupPage">
     <div className="signup-container">
       <h2 className="signup-title">Create an Account</h2>
 
@@ -183,6 +184,7 @@ const SignUpPage = () => {
       {signedUp && <p className="success-message">Successfully signed up!</p>}
       {error && <p className="error-message">{error}</p>}
       
+    </div>
     </div>
     
   );

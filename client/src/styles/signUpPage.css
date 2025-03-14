@@ -1,5 +1,9 @@
 /* Styling for the sign-up container elements */
-
+.signupPage{
+  display:flex;
+  justify-content:center;
+  align-content:center
+}
 .signup-container {
   max-width: 400px;
   width: 100%; 

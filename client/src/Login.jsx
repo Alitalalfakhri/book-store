@@ -8,6 +8,7 @@ import { login } from './features/user/userSlice';
 import { useState , useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyDh1UQ92aWOpYJsCTaYEn66J7V9Pdqvfd4",
   authDomain: "sumbook-ali.firebaseapp.com",
@@ -66,7 +67,7 @@ export default function Login() {
         // Handle the response if needed
         if (response.status === 200) {
           const checkAuth = async () =>{
-            const res = await axios.get("https://c322ae04-db91-4608-8031-e5257a3ff16c-00-3hoqmrkh6ralv.pike.replit.dev/auth/status")
+            const res = await axios.get(`${backendUrl}/auth/status`)
 
             console.log(res.data)
             if(res.data.loggedIn){
@@ -97,7 +98,7 @@ export default function Login() {
       // Handle the response if needed
       if (response.status === 200) {
         const checkAuth = async () =>{
-          const res = await axios.get("https://c322ae04-db91-4608-8031-e5257a3ff16c-00-3hoqmrkh6ralv.pike.replit.dev/auth/status")
+          const res = await axios.get(`${backendUrl}/auth/status`)
 
           console.log(res.data)
           if(res.data.loggedIn){

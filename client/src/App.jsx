@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "./features/user/userSlice";
 import Login from "./Login.jsx";
 import Search from "./Search.jsx";
-
+import {backendUrl} from "./constant.js";
 export default function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -43,7 +43,7 @@ export default function App() {
     const checkAuth = async () => {
       try {
         const res = await axios.get(
-          "https://c322ae04-db91-4608-8031-e5257a3ff16c-00-3hoqmrkh6ralv.pike.replit.dev/auth/status",
+          `${backendUrl}/auth/status`,
         );
 
         if (res.data.loggedIn) {
