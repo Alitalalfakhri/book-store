@@ -73,7 +73,7 @@ router.post('/addOrder', async (req, res) => {
 
     console.log('Updated itemsArray:', updatedItemsArray); // Debugging log
 
-    // Create the order with the updated itemsArray
+    
     const newOrder = new Order({
       itemsArray: updatedItemsArray, // Use the updated array
       price: price,
@@ -92,16 +92,17 @@ router.post('/addOrder', async (req, res) => {
     user.orders.push(newOrder); // Assuming `orders` is an array of order IDs in the user schema
     await user.save();
 
-    // Send a message to Telegram bot
-    const telegramMessage = `New order received:\n
-      Order ID: ${newOrder.id}\n
-      User ID: ${newOrder.uid}\n
-      Total Price: ${newOrder.price}\n
-      Date: ${newOrder.date}\n
-      Address: ${newOrder.street}, ${newOrder.city}\n
-      Phone: ${newOrder.phone}\n
-      Items: ${JSON.stringify(newOrder.itemsArray)}`;
+    const telegramMessage =
+      `New order received:\n
+    Order ID: ${newOrder.id}\n
+    User ID: ${newOrder.uid}\n
+    Total Price: ${newOrder.price}\n
+    Date: ${newOrder.date}\n
+    Address: ${newOrder.street}, ${newOrder.city}\n
+    Phone: ${newOrder.phone}\n
+    Items:\n${newOrder.itemsArray.reduce((acc, item) => acc + `- ${item.name}, Quantity: ${item.quantity}\n \n`, '')}`;
 
+    
     await sendTelegramMessage(telegramMessage);
 
     // Send success response
