@@ -12,8 +12,8 @@ const router = express.Router();
 
 // Function to send message to Telegram bot
 async function sendTelegramMessage(message) {
-  const botToken = '7946714790:AAEDlGycwT6HAhJPOGZ5myEICaOWyB4Kmw4';
-  const chatId = '7428335283';
+  const botToken = process.env.TELEGRAM_BOT_TOKEN; // Access bot token from .env
+  const chatId = process.env.TELEGRAM_CHAT_ID;
   const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
   try {
