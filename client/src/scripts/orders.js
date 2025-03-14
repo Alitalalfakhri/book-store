@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import {backendUrl} from '../constant.js';
 
 
 function generateRandomId(length) {
@@ -43,7 +43,7 @@ const orders = {
     localStorage.setItem("ordersArray", JSON.stringify(this.ordersArray));
     console.log("Updated orders:", newOrder);
 
-    const response = await axios.post("https://c322ae04-db91-4608-8031-e5257a3ff16c-00-3hoqmrkh6ralv.pike.replit.dev/addOrder" , newOrder)
+    const response = await axios.post(`${backendUrl}/addOrder` , newOrder)
 
     console.log(response.data)
 

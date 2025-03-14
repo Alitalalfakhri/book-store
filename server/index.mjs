@@ -11,6 +11,11 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import bodyParser from 'body-parser';
 import MongoStore from 'connect-mongo';
+import dotenv from 'dotenv';
+
+dotenv.config()
+
+
 const app = express();
 
 const corsOptions = {
@@ -42,7 +47,7 @@ app.use(cartRouter)
 app.use(booksRouter)
 app.use(ordersRouter)
 
-const port = 3000;
+const port = process.env.PORT ;
 
 async function connectDb() {
   try {

@@ -116,7 +116,8 @@ export default function Order(props) {
       </table>
 
       <div className="delivery-options">
-        <select onChange={handleDeliveryOption} value={deliveryOption}>
+        <p style={{fontSize:'1.50rem'}}><b>chose a delivery option ⬇️</b></p>
+        <select style={{padding:"10px" , backgroundColor:"#ece1df " , borderRadius:"15px"}} onChange={handleDeliveryOption} value={deliveryOption}>
           <option value={7}>7 days (Free)</option>
           <option value={3}>3 days ($5)</option>
           <option value={1}>1 day ($10)</option>

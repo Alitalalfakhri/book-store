@@ -6,6 +6,7 @@ import { login } from "./features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {backendUrl} from "./constant.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDh1UQ92aWOpYJsCTaYEn66J7V9Pdqvfd4",
@@ -46,7 +47,7 @@ const SignUpPage = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "https://c322ae04-db91-4608-8031-e5257a3ff16c-00-3hoqmrkh6ralv.pike.replit.dev/sign-up-email",
+        `${backendUrl}/sign-up-email`,
         { email, password , type:'email'},
       );
 
@@ -66,7 +67,7 @@ const SignUpPage = () => {
     }
 
     const checkAuth = async () =>{
-      const res = await axios.get("https://c322ae04-db91-4608-8031-e5257a3ff16c-00-3hoqmrkh6ralv.pike.replit.dev/auth/status")
+      const res = await axios.get(`${backendUrl}/auth/status`)
 
       console.log(res.data)
       if(res.data.loggedIn){
@@ -107,7 +108,7 @@ const SignUpPage = () => {
       setError("Google sign-in failed. Please try again.");
     }
     const checkAuth = async () =>{
-      const res = await axios.get("https://c322ae04-db91-4608-8031-e5257a3ff16c-00-3hoqmrkh6ralv.pike.replit.dev/auth/status")
+      const res = await axios.get(`${backendUrl}/auth/status`)
 
       console.log(res.data)
       if(res.data.loggedIn){

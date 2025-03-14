@@ -16,17 +16,7 @@ export default function Checkout() {
   
   
   
-  useEffect(() => {
-    if(cartItems.length !== 0){
-    async function sendData(){
-      const response = await axios.post(`${backendUrl}/checkout`, cartItems)
-     
-      console.log(response.data)
-      setSuggesion(response.data)
-    }
-    sendData()
-    
-  } }, cartItems)
+  
 
   
   

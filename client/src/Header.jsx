@@ -64,9 +64,7 @@ export default function Header(props) {
         {isLargeScreen && (
           <nav className="header-nav">
             <button onClick={() => travel('orders')}>My Orders</button>
-            <button onClick={() => travel('about')}>About</button>
-            <button onClick={() => travel('services')}>Services</button>
-            <button onClick={() => travel('contact')}>Contact</button>
+           
           </nav>
         )}
 
@@ -106,9 +104,7 @@ export default function Header(props) {
             {/* Sidebar */}
             <div className={`sidebar ${isSidebarVisible ? 'visible' : ''}`}>
               <button onClick={() => travel('orders')}>My Orders</button>
-              <button onClick={() => travel('about')}>About</button>
-              <button onClick={() => travel('services')}>Services</button>
-              <button onClick={() => travel('contact')}>Contact</button>
+             
             </div>
           </>
         )}
