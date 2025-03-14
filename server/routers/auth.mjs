@@ -2,8 +2,8 @@ import express from 'express';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { body, validationResult } from 'express-validator';
-import EmailUser from '..//shemas/EmailUser.mjs'; 
-import GoogleUser from '..//shemas/EmailUser.mjs'
+import EmailUser from '../shemas/EmailUser.mjs'; 
+import GoogleUser from '../shemas/GoogleUser.mjs'
 import bcrypt from 'bcrypt'; // Import bcrypt for password hashing
 import dotenv from 'dotenv';
 
