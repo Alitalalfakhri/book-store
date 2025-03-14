@@ -2,6 +2,8 @@
 
 /* Header Styles */
 .header {
+  position:sticky;
+  top:0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,7 +11,7 @@
   padding: 10px 20px;
   background-color: #e1d5d5;
   color: black;
-  position: relative;
+  z-index: 100;
   box-sizing: border-box; 
   margin-bottom:20px;
 }

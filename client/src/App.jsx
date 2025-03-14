@@ -29,7 +29,7 @@ export default function App() {
 
   // Function to update cart quantity
   function updateCart() {
-    // Use reduce to sum the quantities of all items in the cart
+  
     const totalQuantity = cart.cartArray.reduce(
       (total, item) => total + item.quantity,
       0,
@@ -161,7 +161,7 @@ export default function App() {
             element={
               <>
                 {Headercomponent}
-                <Search searchValue={searchValue} />
+                <Search  getId={(id) => setBookId(id)}  updateCart={updateCart} searchValue={searchValue} />
               </>
             }
           />

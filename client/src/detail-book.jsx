@@ -15,9 +15,10 @@ function DetailBook(props) {
   const dialogRef = useRef(null);
 
   const [bookName, setBookName] = useState("");
-
-  const showDialog = (bookName) => {
+  const [bookId , setBookId] = useState("");
+  const showDialog = (bookName , id) => {
     setBookName(bookName);
+    setBookId(id)
     dialogRef.current.showModal(); 
     setTimeout(() => {
       dialogRef.current.close();
@@ -83,18 +84,30 @@ function DetailBook(props) {
         </button>
         <button
           onClick={() => {
-            buy(book.id);
-            updateCart();
-            showDialog(book.name)
+           
+            showDialog(book.name , book.id)
           }}
           className="back-home-button"
         >
           buy
         </button>
-        <dialog ref={dialogRef} className="add-dialog">
-          <FaCheckCircle />
-
-          <p>Added: {bookName}</p>
+        <dialog ref={dialogRef} className="confirmation-dialog">
+          <div className="dialog-content">
+            <p>Do you want to buy {bookName}?</p>
+            <div className="dialog-buttons">
+              <button onClick={() => {
+                  buy(bookId); 
+                  updateCart();  
+                }} className="buy-button">
+                Buy
+              </button>
+              <button onClick={() => {
+                dialogRef.current.close(); 
+              }} className="read-more-button">
+                Cancel
+              </button>
+            </div>
+          </div>
         </dialog>
       </div>
     );

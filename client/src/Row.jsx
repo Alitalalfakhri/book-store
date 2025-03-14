@@ -7,6 +7,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 import { getBooks } from './data/books.js';
 import {useSelector , useDispatch} from 'react-redux';
 import {loadBooks} from './features/generals/booksSlice.js'
+
 const BookStore = (props) => {
   const navigate = useNavigate();
   const categories = ["Marketing", "Business", "Self-Development", "Stories"];
@@ -35,16 +36,15 @@ const BookStore = (props) => {
   // Ref for dialog
   const dialogRef = useRef(null);
 
-  // State for storing the book name that was added
+  // State for storing the book name and id that was added
   const [bookName, setBookName] = useState("");
+  const [bookId, setBookId] = useState(null);
 
   // Separate function to show the dialog with the book name
-  const showDialog = (bookName) => {
+  const showDialog = (bookName, bookId) => {
     setBookName(bookName);
+    setBookId(bookId);
     dialogRef.current.showModal(); // Show the dialog
-    setTimeout(() => {
-      dialogRef.current.close(); // Close the dialog after 1 second
-    }, 1500);
   };
 
   const BookCard = ({ book }) => {
@@ -60,8 +60,8 @@ const BookStore = (props) => {
     // Function to add the book to the cart (reverted to previous state)
     function handleAddToCart(id) {
       cart.addToCart(id); // Add the book to the cart
-      showDialog(name); // Show the dialog with the book name
       props.updateCart(); // Update the cart icon/length or related UI if needed
+      dialogRef.current.close(); // Close the dialog after adding to cart
     }
 
     return (
@@ -75,7 +75,7 @@ const BookStore = (props) => {
         <div className="card-buttons">
           <button
             onClick={() => {
-              handleAddToCart(id); // Trigger adding to cart and showing the dialog
+              showDialog(name, id); 
             }}
             className="buy-button"
           >
@@ -95,6 +95,7 @@ const BookStore = (props) => {
   };
 
   const Row = ({ title, books }) => {
+   
     return (
       <div className="book-row">
         <h2>{title}</h2>
@@ -107,6 +108,11 @@ const BookStore = (props) => {
     );
   };
 
+  function handleAddToCart(id) {
+    cart.addToCart(id); // Add the book to the cart
+    props.updateCart(); // Update the cart icon/length or related UI if needed
+    dialogRef.current.close(); // Close the dialog after adding to cart
+  }
   return (
     <div>
       {/* Display loading message or spinner */}
@@ -123,11 +129,22 @@ const BookStore = (props) => {
       )}
 
       {/* Dialog to show the "added" message */}
-      <dialog ref={dialogRef} className="add-dialog">
+      <dialog ref={dialogRef} className="confirmation-dialog">
         <div className="dialog-content">
-          <p>Add to cart ?</p>
+          <p>Do you want to buy {bookName}?</p>
+          <div className="dialog-buttons">
+            <button onClick={() => {
+                handleAddToCart(bookId); 
+              }} className="buy-button">
+              Buy
+            </button>
+            <button onClick={() => {
+              dialogRef.current.close(); 
+            }} className="read-more-button">
+              Cancel
+            </button>
+          </div>
         </div>
-          
       </dialog>
     </div>
   );

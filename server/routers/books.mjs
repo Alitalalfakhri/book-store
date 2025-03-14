@@ -25,7 +25,7 @@ router.get("/search" , async (req, res) =>{
   }
   const result = await findBooks(input.name);
   if(result.length === 0){
-    res.send("No books found")
+    res.send([])
   }else if(result.length > 0){
     res.status(200).json(result)
   }
