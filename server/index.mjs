@@ -47,7 +47,7 @@ app.use(cartRouter)
 app.use(booksRouter)
 app.use(ordersRouter)
 
-const port = process.env.PORT ;
+const port = process.env.PORT || 4000;
 
 async function connectDb() {
   try {
